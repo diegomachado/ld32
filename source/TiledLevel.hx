@@ -36,12 +36,15 @@ class TiledLevel extends TiledMap
 
 				loadTilemapSpecialTiles(tiles, layer, tilesetAnimations["base"]);
 
-				var floorLeftSlopes:Array<Int> = [5];
-				var floorRightSlopes:Array<Int> = [6];
-				var ceilLeftSlopes:Array<Int> = [7];
-				var ceilRightSlopes:Array<Int> = [8];
+				var floorLeftSlopes = [7];
+				var floorRightSlopes = [8];
+				var ceilLeftSlopes = [9];
+				var ceilRightSlopes = [10];
 
 				tiles.setSlopes(floorLeftSlopes, floorRightSlopes, ceilLeftSlopes, ceilRightSlopes);
+
+				var clouds = [14, 15];
+				tiles.setClouds(clouds);
 			}
 		}
 	}

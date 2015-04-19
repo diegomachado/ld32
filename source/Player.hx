@@ -1,15 +1,17 @@
 package;
 
-import flixel.FlxSprite;
-import flixel.util.FlxColor;
+import flixel.effects.particles.FlxEmitter;
 import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.util.FlxTimer;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup;
+import flixel.util.FlxColor;
 import flixel.util.FlxRandom;
+import flixel.util.FlxTimer;
 
 import PlayState;
 
-class Player extends FlxSprite
+class Player extends FlxGroup
 {
 	public static inline var WALK_SPEED:Int = 600;
 	public static inline var MAX_WALK_SPEED:Int = 150;
@@ -24,7 +26,7 @@ class Player extends FlxSprite
 	public static inline var FART_POWER:Int = 120;
 	public static inline var FART_MAX_FUEL:Int = 120;
 	public static inline var FART_CONSUME_RATE:Int = 10;
-	public static inline var FART_RECOVER_RATE:Int = 1;
+	public static inline var FART_RECOVER_RATE:Int = 2;
 
 	public static inline var FART_BOOST_PERCENTAGE:Int = 50;
 	public static inline var FART_BOOST_TIME:Float = 0.4;
@@ -44,10 +46,15 @@ class Player extends FlxSprite
 
 	public var fartFuel:Int;
 	var _canFart = false;
+
+	var _canFartMelee = true;
+	var _fartMeleeTimer:FlxTimer = new FlxTimer();
+
 	var _canFartBoost = true;
-	
 	var _fartBoostTimer:FlxTimer = new FlxTimer();
-	var _fartBoostTimerStarted = false;
+
+	public var body:FlxSprite;
+	private var _fartEmitter:FlxEmitter;
 
 	private var JUMP_KEYS = ["Z"];
 	private var FART_KEYS = ["X"];
@@ -59,74 +66,93 @@ class Player extends FlxSprite
 	{
 		levelState = state;
 		
-		super(x,y);
+		super();
+		body = new FlxSprite(x, y);
 		
-		loadGraphic(Reg.PLAYER_SPRITE, true, 32, 32);
-		width = 10;
-		height = 20;
-		offset.set(10, 12);
+		body.loadGraphic(Reg.PLAYER_SPRITE, true, 32, 32);
+		body.width = 10;
+		body.height = 20;
+		body.offset.set(10, 12);
 
-		animation.add("idle", [0]);
-		animation.add("walk", [1, 2, 3], 10, true);
-		animation.add("fall", [4]);
-		animation.add("jump", [5]);
+		body.animation.add("idle", [0]);
+		body.animation.add("walk", [1, 2, 3, 2], 10, true);
+		body.animation.add("fall", [4]);
+		body.animation.add("jump", [5]);
 
-		animation.play("idle");
+		body.animation.play("idle");
 
-		drag.x = DRAG;
-		acceleration.y = GRAVITY;
-		maxVelocity.set(MAX_WALK_SPEED, MAX_FALL_VELOCITY);
+		body.drag.x = DRAG;
+		body.acceleration.y = GRAVITY;
+		body.maxVelocity.set(MAX_WALK_SPEED, MAX_FALL_VELOCITY);
 
 		fartFuel = FART_MAX_FUEL;
+
+		_fartEmitter = new FlxEmitter(x / 2, y / 2);
+		_fartEmitter.setSize(8, 8);
+		_fartEmitter.setXSpeed(10, 20);
+		_fartEmitter.setYSpeed( -10, 10);
+		_fartEmitter.setAlpha(0.3, 1, 0, 0);
+		_fartEmitter.makeParticles("assets/images/fart-particles.png", 50, 16, true);
+
+		add(_fartEmitter);
+		add(body);
 
 		FlxG.watch.add(this, "_onGround");
 		FlxG.watch.add(this, "_canJump");
 		FlxG.watch.add(this, "_canVariableJump");
 		FlxG.watch.add(this, "_canFart");
 		FlxG.watch.add(this, "fartFuel");
-		FlxG.watch.add(this, "velocity");
-		FlxG.watch.add(this, "acceleration");
+		FlxG.watch.add(body, "velocity");
+		FlxG.watch.add(body, "acceleration");
+		FlxG.watch.add(_fartEmitter, "xVelocity.min");
+		FlxG.watch.add(_fartEmitter, "xVelocity.max");
 	}
 
 	override public function update()
 	{
-		_onGround = isTouching(FlxObject.FLOOR);
+		_onGround = body.isTouching(FlxObject.FLOOR);
 
 		walk();
 		jump();
 		fartJetpack();
+		fartBoost();
+		fartMelee();
 		animate();
+
+		if(body.flipX)
+		{
+			_fartEmitter.setPosition(body.x + body.width / 2, body.y + body.height - 10);
+			_fartEmitter.setXSpeed(5 - body.velocity.x / 5, 40 - body.velocity.x / 5);
+		}
+		else
+		{
+			_fartEmitter.setPosition(body.x + body.width / 2 - 8, body.y + body.height - 10);
+			_fartEmitter.setXSpeed(-40 - body.velocity.x / 5, 5 - body.velocity.x / 5);
+		}
+
+		if(_onGround)
+		{
+			_fartEmitter.setYSpeed(-10, 10);
+		}
 
 		super.update();
 	}
 
 	private function walk()
 	{
-		acceleration.x = 0;
-
-		if(FlxG.keys.anyPressed(LEFT_KEYS.concat(RIGHT_KEYS)) && FlxG.keys.anyJustPressed(FART_KEYS) && _onGround)
-		{
-			var hasFartBoostFuel = fartFuel >= FART_BOOST_CONSUME;
-
-			if(_canFartBoost && hasFartBoostFuel)
-			{
-				_fartBoostTimer.start(FART_BOOST_TIME, onFartBoostEnds, 1);
-				maxVelocity.x = MAX_WALK_SPEED * (1 + FART_BOOST_PERCENTAGE / 100);
-				fartFuel -= Std.int(FART_BOOST_CONSUME);
-			}
-		}
+		body.acceleration.x = 0;
 
 		if(FlxG.keys.anyPressed(LEFT_KEYS))
 		{
-			acceleration.x -= drag.x;
-			flipX = true;
-			offset.x = 11;
+			body.acceleration.x -= body.drag.x;
+			body.flipX = true;
+			body.offset.x = 11;
 		}
 		else if(FlxG.keys.anyPressed(RIGHT_KEYS))
 		{
-			acceleration.x += drag.x;
-			flipX = false;
-			offset.x = 10;
+			body.acceleration.x += body.drag.x;
+			body.flipX = false;
+			body.offset.x = 10;
 		}
 	}
 
@@ -141,7 +167,7 @@ class Player extends FlxSprite
 
 		if(FlxG.keys.anyJustPressed(JUMP_KEYS) && _canJump)
 		{
-			velocity.y = -JUMP_SPEED;
+			body.velocity.y = -JUMP_SPEED;
 			_canJump = false;
 			_canVariableJump = true;
 		}
@@ -153,7 +179,7 @@ class Player extends FlxSprite
 				_variableJumpTimerStarted = true;
 			}
 
-			velocity.y = -JUMP_SPEED;
+			body.velocity.y = -JUMP_SPEED;
 		}
 		else if(FlxG.keys.anyJustReleased(JUMP_KEYS)) 
 		{
@@ -166,32 +192,72 @@ class Player extends FlxSprite
 		_canFart = (!_onGround && !_canJump && !_canVariableJump && (fartFuel > 0));
 		var fartFuelIncomplete = (fartFuel < FART_MAX_FUEL);
 
+		if(FlxG.keys.anyJustPressed(FART_KEYS))
+		{
+			_fartEmitter.setYSpeed(10, 40);
+			_fartEmitter.start(false, 1, 0.0015, 100);
+		}
+
+		_fartEmitter.on = false;
+
 		if(FlxG.keys.anyPressed(FART_KEYS) && _canFart && FlxRandom.chanceRoll(30))
 		{
-			velocity.y = -FART_POWER;
+			body.velocity.y = -FART_POWER;
 			fartFuel -= FART_CONSUME_RATE;
+			_fartEmitter.on = true;
 		}
 		
 		if(_onGround && fartFuelIncomplete)
 		{
+			_fartEmitter.on = false;
 			fartFuel += FART_RECOVER_RATE;
+		}
+	}
+
+	private function fartBoost()
+	{
+		if(FlxG.keys.anyPressed(LEFT_KEYS.concat(RIGHT_KEYS)) && FlxG.keys.anyJustPressed(FART_KEYS) && _onGround)
+		{
+			var hasFartBoostFuel = fartFuel >= FART_BOOST_CONSUME;
+
+			if(_canFartBoost && hasFartBoostFuel)
+			{
+				_fartBoostTimer.start(FART_BOOST_TIME, onFartBoostEnds, 1);
+				body.maxVelocity.x = MAX_WALK_SPEED * (1 + FART_BOOST_PERCENTAGE / 100);
+				fartFuel -= Std.int(FART_BOOST_CONSUME);
+				_fartEmitter.start(true, 1, 50);
+			}
+		}
+	}
+
+	private function fartMelee()
+	{
+		if(FlxG.keys.anyJustPressed(FART_KEYS) && _onGround)
+		{
+			var hasFartBoostFuel = fartFuel >= FART_BOOST_CONSUME;
+
+			if(_canFartMelee && hasFartBoostFuel)
+			{
+				_fartMeleeTimer.start(FART_BOOST_TIME, onFartMeleeEnds, 1);
+				fartFuel -= Std.int(FART_BOOST_CONSUME);
+				_fartEmitter.start(true, 1, 50);
+			}
 		}
 	}
 
 	public function animate()
 	{
+		if(body.velocity.y >= 0)
+			body.animation.play("jump");
 
-		if(velocity.y >= 0)
-			animation.play("jump");
-
-		if(velocity.y < 0)
-			animation.play("fall");
+		if(body.velocity.y < 0)
+			body.animation.play("fall");
 		
-		if(velocity.x != 0 && _onGround)
-			animation.play("walk");
+		if(body.velocity.x != 0 && _onGround)
+			body.animation.play("walk");
 
-	    if(velocity.x == 0 && velocity.y == 0)
-	    	animation.play("idle");
+	    if(body.velocity.x == 0 && body.velocity.y == 0)
+	    	body.animation.play("idle");
 	}
 
 	private function onVariableJumpEnds(timer:FlxTimer)
@@ -208,8 +274,12 @@ class Player extends FlxSprite
 
 	private function onFartBoostEnds(timer:FlxTimer)
 	{
-		maxVelocity.x = MAX_WALK_SPEED;
+		body.maxVelocity.x = MAX_WALK_SPEED;
 		_canFartBoost = true;
 	}
 
+	private function onFartMeleeEnds(timer:FlxTimer)
+	{
+		_canFartMelee = true;
+	}
 }

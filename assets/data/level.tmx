@@ -3,9 +3,14 @@
  <tileset firstgid="1" name="base" tilewidth="16" tileheight="16">
   <image source="../images/ld-32.png" width="128" height="32"/>
  </tileset>
+ <layer name="background" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMNwAAAXcAAE=
+  </data>
+ </layer>
  <layer name="tiles" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjZmBYwMTAcIBWmBlCL2CgIQCanzBqx6gdo3aM2jFU7GCG0DTDQPMTAOObIJ0=
+   eJxjZWBYwMzAcIBWmBVCL2CgIQCanzBc7GAD2sFDAeYl4MahHFZ8QMzPwNAApBuGsj9ggJvGdrAAzWahoR3cEDsOsEDKEKrYwc4Adi9WzEqmHehmgsxhAtI4cAIrHjfgcxseMzHsIEEt2RgA3z4u3g==
   </data>
  </layer>
  <objectgroup color="#ff0010" name="objects">

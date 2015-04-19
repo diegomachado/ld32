@@ -24,6 +24,8 @@ class PlayState extends FlxState
 
 	override public function create()
 	{
+		FlxG.state.bgColor = 0xffacbcd7;
+		
 		tiledLevel = new TiledLevel(Reg.BASE_LEVEL);
 		add(tiledLevel.tiles);
 		tiledLevel.loadObjects(this);
@@ -43,7 +45,7 @@ class PlayState extends FlxState
 
 		super.update();
 
-		FlxG.collide(tiledLevel.tiles, player);
+		FlxG.collide(tiledLevel.tiles, player.body);
 	}
 
 	override public function destroy()
