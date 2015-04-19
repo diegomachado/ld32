@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="9">
+ <tileset firstgid="1" name="base" tilewidth="16" tileheight="16">
+  <image source="../images/ld-32.png" width="128" height="96"/>
+ </tileset>
+ <layer name="background" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJwTYGBgEBjFo3gUj+JRPKwwAOLYF3E=
+  </data>
+ </layer>
+ <layer name="collidables" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjZWBYwMzAcIBWmBVCL2CgIQCanzBc7GCF0HDMQgM7mIA0Mqa2v4azHejxA4sjPiDmh9ANlNqBDVPit1E7iAPcwLgj1g5s6QAZc+C2g2h/UOIGoFwCAApfIPc=
+  </data>
+ </layer>
+ <layer name="furniture" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBheQJEOdmjSwY5RMApGAX2AEAQ30Mp8GSCWgmCa2YENAABMzgG/
+  </data>
+ </layer>
+ <layer name="decoratives" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2D4AIWBdsAoGAWDBAAAZ1wAIQ==
+  </data>
+ </layer>
+ <objectgroup color="#ff0010" name="objects">
+  <object id="3" name="player" type="player" x="344" y="180" width="16" height="16"/>
+  <object id="7" name="exit" type="exit" x="32" y="36" width="16" height="28"/>
+ </objectgroup>
+</map>

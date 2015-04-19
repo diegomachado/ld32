@@ -20,6 +20,7 @@ class PlayState extends FlxState
 {
 	public var tiledLevel:TiledLevel;
 	public var player:Player;
+	public var exit:Exit;
 	public var fartBar:FlxBar;
 
 	override public function create()
@@ -27,8 +28,14 @@ class PlayState extends FlxState
 		FlxG.state.bgColor = 0xffacbcd7;
 		
 		tiledLevel = new TiledLevel(Reg.BASE_LEVEL);
-		add(tiledLevel.tiles);
+		add(tiledLevel.background);
+		add(tiledLevel.collidables);
+		add(tiledLevel.furniture);
+		add(tiledLevel.decoratives);
 		tiledLevel.loadObjects(this);
+
+		tiledLevel.furniture.alpha = 0.8;
+		tiledLevel.decoratives.alpha = 0.8;
 
 		fartBar = new FlxBar(5, 5, FlxBar.FILL_LEFT_TO_RIGHT, 30, 10, player, "fartFuel");
 		add(fartBar);
@@ -45,7 +52,14 @@ class PlayState extends FlxState
 
 		super.update();
 
-		FlxG.collide(tiledLevel.tiles, player.body);
+		FlxG.collide(tiledLevel.collidables, player.body);
+		FlxG.overlap(player.body, exit, win);		
+	}
+
+	public function win(player:FlxObject, exit:FlxObject)
+	{
+	    trace("next level!");
+	    exit.destroy();
 	}
 
 	override public function destroy()

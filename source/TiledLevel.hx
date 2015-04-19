@@ -1,5 +1,6 @@
 package;
 
+import flixel.tile.FlxTilemap;
 import flixel.addons.tile.FlxTilemapExt;
 import flixel.addons.tile.FlxTileSpecial;
 
@@ -14,7 +15,10 @@ import TiledAnimations;
 
 class TiledLevel extends TiledMap
 {
-	public var tiles:FlxTilemapExt = new FlxTilemapExt();
+	public var background = new FlxTilemapExt();
+	public var collidables = new FlxTilemapExt();
+	public var furniture = new FlxTilemapExt();
+	public var decoratives = new FlxTilemapExt();
 
 	public function new(tiledLevel:String)
 	{
@@ -24,27 +28,66 @@ class TiledLevel extends TiledMap
 
 		for (layer in layers)
 		{
-			if(layer.name == "tiles")
+			if(layer.name == "background")
 			{
-				tiles.widthInTiles = width;
-				tiles.heightInTiles = height;
-				tiles.loadMap(layer.tileArray, 
+				background.widthInTiles = width;
+				background.heightInTiles = height;
+				background.loadMap(layer.tileArray, 
+							  Reg.BASE_TILESHEET, 
+							  tilesets["base"].tileWidth, 
+							  tilesets["base"].tileHeight, 
+							  0, 1, 1, 1);
+
+				loadTilemapSpecialTiles(background, layer, tilesetAnimations["base"]);
+			}
+
+			if(layer.name == "collidables")
+			{
+				collidables.widthInTiles = width;
+				collidables.heightInTiles = height;
+				collidables.loadMap(layer.tileArray, 
 							  Reg.BASE_TILESHEET, 
 							  tilesets["base"].tileWidth, 
 							  tilesets["base"].tileHeight, 
 							  0, 1, 1, 2);
 
-				loadTilemapSpecialTiles(tiles, layer, tilesetAnimations["base"]);
+				loadTilemapSpecialTiles(collidables, layer, tilesetAnimations["base"]);
 
 				var floorLeftSlopes = [7];
 				var floorRightSlopes = [8];
 				var ceilLeftSlopes = [9];
 				var ceilRightSlopes = [10];
 
-				tiles.setSlopes(floorLeftSlopes, floorRightSlopes, ceilLeftSlopes, ceilRightSlopes);
+				collidables.setSlopes(floorLeftSlopes, floorRightSlopes, ceilLeftSlopes, ceilRightSlopes);
 
 				var clouds = [14, 15];
-				tiles.setClouds(clouds);
+				collidables.setClouds(clouds);
+			}
+
+			if(layer.name == "furniture")
+			{
+				furniture.widthInTiles = width;
+				furniture.heightInTiles = height;
+				furniture.loadMap(layer.tileArray, 
+							  Reg.BASE_TILESHEET, 
+							  tilesets["base"].tileWidth, 
+							  tilesets["base"].tileHeight, 
+							  0, 1, 1, 1);
+
+				loadTilemapSpecialTiles(furniture, layer, tilesetAnimations["base"]);
+			}
+
+			if(layer.name == "decoratives")
+			{
+				decoratives.widthInTiles = width;
+				decoratives.heightInTiles = height;
+				decoratives.loadMap(layer.tileArray, 
+							  Reg.BASE_TILESHEET, 
+							  tilesets["base"].tileWidth, 
+							  tilesets["base"].tileHeight, 
+							  0, 1, 1, 1);
+
+				loadTilemapSpecialTiles(decoratives, layer, tilesetAnimations["base"]);
 			}
 		}
 	}
@@ -111,6 +154,11 @@ class TiledLevel extends TiledMap
 				var player = new Player(x, y, state);
 				state.player = player;
 				state.add(player);
+
+			case "exit":	
+				var exit = new Exit(x, y, width, height);
+				state.exit = exit;
+				state.add(exit);
 		}
 	}
 
