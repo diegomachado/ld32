@@ -6,34 +6,41 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.effects.FlxFlicker;
+import flixel.util.FlxColor;
 
-/**
- * A FlxState which can be used for the game's menu.
- */
 class MenuState extends FlxState
 {
-	/**
-	 * Function that is called up when to state is created to set it up. 
-	 */
-	override public function create():Void
+	var _pressZX:FlxText;
+
+	override public function create()
 	{
+		FlxG.sound.playMusic("assets/music/music.mp3", 0.8, true);
+
+		var background = new FlxSprite(0, 0);
+		background.loadGraphic("assets/images/menu-bg.png", false);
+		add(background);
+
+		_pressZX = new FlxText(0, 165, 320);
+		_pressZX.text = "Press Z or X to start";
+		_pressZX.setFormat(null, 12, FlxColor.BLACK, "center");
+		add(_pressZX);
+
+		FlxFlicker.flicker(_pressZX, 10, 0.25);
+
 		super.create();
 	}
 	
-	/**
-	 * Function that is called when this state is destroyed - you might want to 
-	 * consider setting all objects this state uses to null to help garbage collection.
-	 */
-	override public function destroy():Void
+	override public function update()
+	{
+		if(FlxG.keys.anyJustPressed(["Z", "X"]))
+			FlxG.switchState(new PlayState());
+
+		super.update();
+	}	
+
+	override public function destroy()
 	{
 		super.destroy();
 	}
-
-	/**
-	 * Function that is called once every frame.
-	 */
-	override public function update():Void
-	{
-		super.update();
-	}	
 }

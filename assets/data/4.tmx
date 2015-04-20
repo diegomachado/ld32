@@ -5,7 +5,7 @@
  </tileset>
  <layer name="background" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJwTYGBgEBjFo3gUj+JRPKwwAOLYF3E=
+   eJwTYGBgEBjFo3gIYxU62KEzCPw5ikcxKRgAbHcXoQ==
   </data>
  </layer>
  <layer name="collidables" width="25" height="15">

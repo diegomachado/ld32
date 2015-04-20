@@ -15,7 +15,7 @@
  </layer>
  <layer name="furniture" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYKAPUGJgcKAVRrZHkQ5+0aSDHaNgFAw0EEHCQwEoQTE6kAViGQjdgE2fEARjlaMGANktBcE0swMbAAA2jgvj
+   eJxjYKAPUGJgcKAVRrZHkQ5+0aSDHaNgFAw0EEHCQwEoQTE6kAViGQjdgC4nBMENKjRyE8heKQhu0KGRHbgAAG1uDDM=
   </data>
  </layer>
  <layer name="decoratives" width="25" height="15">

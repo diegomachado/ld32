@@ -40,8 +40,8 @@ class PlayState extends FlxState
 
 	override public function create()
 	{
-		if(_levelId == 0)
-			FlxG.sound.playMusic("assets/music/music.mp3", 0.8, true);
+		// if(_levelId == 0)
+		// 	FlxG.sound.playMusic("assets/music/music.mp3", 0.8, true);
 
 		FlxG.state.bgColor = 0xffacbcd7;
 		FlxG.camera.fade(FlxColor.BLACK, .33, true);
@@ -81,9 +81,6 @@ class PlayState extends FlxState
 		add(deathEmitter);
 
 		add(player);
-
-		tiledLevel.furniture.alpha = 0.8;
-		tiledLevel.decoratives.alpha = 0.8;
 
 		fartBar = new FlxBar(5, 5, FlxBar.FILL_LEFT_TO_RIGHT, 30, 10, player, "fartFuel");
 		add(fartBar);

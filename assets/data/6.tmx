@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="77">
+ <tileset firstgid="1" name="ld-32" tilewidth="16" tileheight="16">
+  <image source="../images/ld-32.png" width="128" height="96"/>
+ </tileset>
+ <layer name="background" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJwTYGBgEBjFo3gUj+JRPKwwAOLYF3E=
+  </data>
+ </layer>
+ <layer name="collidables" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjZWBYwMzA4ICGD2DDrBC8AJc8GgabxQphL2AgEgDVJpCinhw99LCDBehvFvLseIDHzAQW/HbilSfGDkL+hMnzAdn8aBgo1kBNO+jhD2LsgPkV5j9y7MAVXsMtrCi1Y6SkK1YI3YANsxIvjxMzATEArOBAmQ==
+  </data>
+ </layer>
+ <layer name="furniture" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhBVQo1K9IhBodCu3QpFA/pQAAgdAAmw==
+  </data>
+ </layer>
+ <layer name="decoratives" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMNwAAAXcAAE=
+  </data>
+ </layer>
+ <objectgroup color="#ff0010" name="objects">
+  <object id="3" name="player" type="player" x="24" y="200" width="16" height="16"/>
+  <object id="7" name="exit" type="exit" x="288" y="196" width="16" height="28"/>
+  <object id="63" type="cockroach" x="272" y="52" width="18" height="29">
+   <properties>
+    <property name="endPatrol" value="348"/>
+    <property name="isImmune" value="true"/>
+    <property name="isStatic" value="false"/>
+    <property name="startPatrol" value="272"/>
+   </properties>
+  </object>
+  <object id="67" type="saw" x="16" y="144" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="68" type="saw" x="32" y="144" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="69" type="saw" x="48" y="144" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="70" type="saw" x="64" y="144" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="71" type="saw" x="80" y="64" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="72" type="saw" x="64" y="64" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="73" type="saw" x="96" y="64" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="74" type="saw" x="48" y="64" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="75" type="cockroach" x="365" y="100" width="18" height="29">
+   <properties>
+    <property name="endPatrol" value="348"/>
+    <property name="isImmune" value="true"/>
+    <property name="isStatic" value="false"/>
+    <property name="startPatrol" value="288"/>
+   </properties>
+  </object>
+  <object id="76" type="cockroach" x="348" y="148" width="18" height="29">
+   <properties>
+    <property name="endPatrol" value="348"/>
+    <property name="isImmune" value="true"/>
+    <property name="isStatic" value="false"/>
+    <property name="startPatrol" value="272"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
