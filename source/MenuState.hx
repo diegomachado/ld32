@@ -21,7 +21,7 @@ class MenuState extends FlxState
 		background.loadGraphic("assets/images/menu-bg.png", false);
 		add(background);
 
-		_pressZX = new FlxText(0, 165, 320);
+		_pressZX = new FlxText(0, 165, 400);
 		_pressZX.text = "Press Z or X to start";
 		_pressZX.setFormat(null, 12, FlxColor.BLACK, "center");
 		add(_pressZX);

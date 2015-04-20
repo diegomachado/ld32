@@ -34,10 +34,37 @@ class Saw extends FlxSprite
 	{
 		super.update();
 
-		if(loop && y > FlxG.height + height)
+		if(loop)
 		{
-			y = initialPosition.y;
+			if(velocity.x > 0)
+			{
+				if(x > FlxG.width)
+					x = initialPosition.x;
+			}
+			else if(velocity.x < 0)
+			{
+				if(x + width < 0)
+					x = initialPosition.x;
+			}
+
+			if(velocity.y > 0)
+			{
+				if(y > FlxG.height)
+					y = initialPosition.y;
+			}
+			else if(velocity.y < 0)
+			{
+				if(y + height < 0)
+					y = initialPosition.y;
+			}
+
+			if(y > FlxG.height + height)
+			{
+				y = initialPosition.y;
+			}
 		}
+
+
 	}
 
 	public override function destroy()

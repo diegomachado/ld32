@@ -17,5 +17,5 @@ class Reg
 	public static inline var SICK_SOUNDS_PATH:String = "assets/sounds/sick";
 
 	public static var currentLevel = 0;
-	public static var levels = ["1", "2", "3", "4", "5"];
+	public static var levels = ["1", "2", "3", "4", "5", "6", "7", "8"];
 }

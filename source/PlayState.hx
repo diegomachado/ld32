@@ -40,16 +40,10 @@ class PlayState extends FlxState
 
 	override public function create()
 	{
-		// if(_levelId == 0)
-		// 	FlxG.sound.playMusic("assets/music/music.mp3", 0.8, true);
-
 		FlxG.state.bgColor = 0xffacbcd7;
 		FlxG.camera.fade(FlxColor.BLACK, .33, true);
 
 		var levelId:String;
-
-		if(Reg.currentLevel >= Reg.levels.length)
-			_levelId = Reg.currentLevel = 0;
 
 		levelId = Reg.LEVEL_PATH + Reg.levels[_levelId] + Reg.LEVEL_EXT;
 
@@ -113,13 +107,27 @@ class PlayState extends FlxState
 			FlxG.overlap(player.body, saws, death);		
 
 		FlxG.overlap(player.body, exit, win);		
+
+		if(player.body.y + player.body.height > FlxG.height)
+		{
+			restartLevel();
+		}
 	}
 
 	public function win(player:FlxObject, exit:FlxObject)
 	{
 		exit.destroy();
+
 	    Reg.currentLevel++;
-	    FlxG.switchState(new PlayState(Reg.currentLevel));
+
+	    if(Std.int(Reg.currentLevel) == Reg.levels.length)
+	    {
+	    	FlxG.switchState(new WinState());
+	    }
+	    else
+	    {
+	    	FlxG.switchState(new PlayState(Reg.currentLevel));
+	    }
 	}
 
 	public function death(playerBody:FlxSprite, hazard:FlxObject)
@@ -161,7 +169,6 @@ class PlayState extends FlxState
 		spikes.destroy();
 		saws.destroy();
 		cockroaches.destroy();
-		// fartBar.destroy();
 		deathEmitter.destroy();
 		_deathTimer.destroy();
 

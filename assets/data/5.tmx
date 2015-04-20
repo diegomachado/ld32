@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="23">
  <tileset firstgid="1" name="ld-32" tilewidth="16" tileheight="16">
   <image source="../images/ld-32.png" width="128" height="96"/>
  </tileset>
@@ -10,51 +10,54 @@
  </layer>
  <layer name="collidables" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJy9k9EJwCAMRI/WfLlUR+kojuIoHa0REYJojRoaOCIK94yJBMQTuKQIeA4AqyLhmbw4R1TheH+HIz15fbcY5Wy1BqdkrNRS+xcG5RxchzPTn9Z95Xv06pGskeoaZhg78TcjqdUTa4YVx+V5DUnU+QO9OdOG9m99zbTn/ZW7j1iS5w18FTxY+lroBerWI+o=
+   eJxjZmA4wExjzEAHwEJ78xOAflmATY4diJmJxBx47ADKJ7AB7eDBgoHiCUxANcRgZDN40dzMjMcfnBB5ouKUi4A/WHDYQS3AQqd0hR5+QH4CtvihBNPDHwOZP6gFQOmKlYH4vEZOfmQmIZ8Ri1nR7KGFHTB7YP4CshMA9WY4Iw==
   </data>
  </layer>
  <layer name="furniture" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYKAPUGJgOICMqWkmjK+CRZ4a9iADHSqbR6wbyfULqfqoGT/E2kUMJsIsqgFFOtijSUBeiYp2EQKk2KXEQF+3UQqU0OiRBABFMRZf
+   eJxjYBheQIUOdujQwY7hDkToYIcMEMsCsRwUy0NpoFgDHawfVkAIghtoaYcUBNPUDnxAkQ52aNLBDhgAAMpVA1Y=
   </data>
  </layer>
  <layer name="decoratives" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUDARQGGgHjIJhDQBR3AAh
+   eJxjYBgFpACFQWrWKMAdnqJALIbEHgW0AwpIbHEgloBiILthINwzkgEAuwEBnw==
   </data>
  </layer>
  <objectgroup color="#ff0010" name="objects">
-  <object id="3" name="player" type="player" x="24" y="48" width="16" height="16"/>
-  <object id="7" name="exit" type="exit" x="352" y="116" width="16" height="28"/>
-  <object id="34" type="spikes" x="16" y="16" width="64" height="8"/>
-  <object id="37" type="spikes" x="48" y="120" width="16" height="8"/>
-  <object id="38" type="spikes" x="80" y="32" width="16" height="8"/>
-  <object id="39" type="spikes" x="96" y="64" width="16" height="8"/>
-  <object id="40" type="spikes" x="112" y="80" width="32" height="8"/>
-  <object id="42" type="spikes" x="64" y="136" width="16" height="8"/>
-  <object id="43" type="spikes" x="192" y="200" width="16" height="8"/>
-  <object id="44" type="spikes" x="224" y="200" width="16" height="8"/>
-  <object id="46" type="spikes" x="320" y="64" width="16" height="8"/>
-  <object id="47" type="spikes" x="336" y="48" width="16" height="8"/>
-  <object id="48" type="spikes" x="144" y="96" width="176" height="8"/>
-  <object id="49" type="spikes" x="80" y="152" width="32" height="8"/>
-  <object id="50" type="spikes" x="112" y="168" width="32" height="8"/>
-  <object id="53" type="spikes" x="288" y="168" width="48" height="8"/>
-  <object id="55" type="spikes" x="352" y="16" width="32" height="8"/>
-  <object id="60" type="cockroach" x="158" y="163" width="18" height="29">
+  <properties>
+   <property name="loop" value="true"/>
+   <property name="xVelocity" value="-100"/>
+   <property name="yVelocity" value="0"/>
+  </properties>
+  <object id="3" name="player" type="player" x="20" y="44" width="16" height="20"/>
+  <object id="7" name="exit" type="exit" x="368" y="200" width="16" height="24"/>
+  <object id="14" type="cockroach" x="232" y="164" width="18" height="29">
    <properties>
-    <property name="endPatrol" value="0"/>
+    <property name="endPatrol" value="352"/>
     <property name="isImmune" value="true"/>
-    <property name="isStatic" value="true"/>
-    <property name="startPatrol" value="0"/>
+    <property name="isStatic" value="false"/>
+    <property name="startPatrol" value="16"/>
    </properties>
   </object>
-  <object id="63" type="cockroach" x="254" y="163" width="18" height="29">
+  <object id="17" type="saw" x="416" y="16" width="16" height="16" rotation="90">
    <properties>
-    <property name="endPatrol" value="0"/>
-    <property name="isImmune" value="true"/>
-    <property name="isStatic" value="true"/>
-    <property name="startPatrol" value="0"/>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="-100"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="19" type="saw" x="0" y="112" width="16" height="16" rotation="90">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="100"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="22" type="saw" x="416" y="144" width="16" height="16" rotation="90">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="-100"/>
+    <property name="yVelocity" value="0"/>
    </properties>
   </object>
  </objectgroup>
