@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="9">
- <tileset firstgid="1" name="base" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="15">
+ <tileset firstgid="1" name="ld-32" tilewidth="16" tileheight="16">
   <image source="../images/ld-32.png" width="128" height="96"/>
  </tileset>
  <layer name="background" width="25" height="15">
@@ -10,21 +10,44 @@
  </layer>
  <layer name="collidables" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjZWBYwMzAcIBWmBVCL2CgIQCanzBc7GCF0HDMQgM7mIA0Mqa2v4azHejxA4sjPiDmh9ANlNqBDVPit1E7iAPcwLgj1g5s6QAZc+C2g2h/UOIGoFwCAApfIPc=
+   eJxjZWBYwMzAcIBWmBVCL2CgIQCanzBc7GCF0HDMQgM7mIA0Mqa2v4azHbD4AcULIxTzAjEfEPND6AZK7UD2D8wOHir7YzjaAVNHrh3cwLjDZwdy3mRjQM2n6JgDtx14/UEKRi8rkDFQLgEAbY8hIQ==
   </data>
  </layer>
  <layer name="furniture" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBheQJEOdmjSwY5RMApGAX2AEAQ30Mp8GSCWgmCa2YENAABMzgG/
+   eJxjYKAPUGJgcKAVRrZHkQ5+0aSDHaNgFAw0EEHCQwEoQTE6kAViGQjdgE2fEARjlaMGANktBcE0swMbAAA2jgvj
   </data>
  </layer>
  <layer name="decoratives" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2D4AIWBdsAoGAWDBAAAZ1wAIQ==
+   eJxjYBgFpACFgXbAKMALFAbaAaNg0AExKC3KMLLSBwBDawCM
   </data>
  </layer>
  <objectgroup color="#ff0010" name="objects">
-  <object id="3" name="player" type="player" x="344" y="180" width="16" height="16"/>
+  <object id="3" name="player" type="player" x="344" y="204" width="16" height="20"/>
   <object id="7" name="exit" type="exit" x="32" y="36" width="16" height="28"/>
+  <object id="10" type="spikes" x="16" y="16" width="368" height="8"/>
+  <object id="11" type="spikes" x="112" y="200" width="32" height="8"/>
+  <object id="12" type="saw" x="208" y="120" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="13" type="saw" x="225" y="120" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
+  <object id="14" type="saw" x="242" y="120" width="16" height="16">
+   <properties>
+    <property name="loop" value="false"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="32">
+ <tileset firstgid="1" name="ld-32" tilewidth="16" tileheight="16">
+  <image source="../images/ld-32.png" width="128" height="96"/>
+ </tileset>
+ <layer name="background" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJwTYGBgEBjFo3gUj+JRPKwwAOLYF3E=
+  </data>
+ </layer>
+ <layer name="collidables" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYMKBmRkYFjAQAYDqEnCZgQ+zMjA4sBBpB1DdAaD6A6TaQawfKPELNe0AhQkzFkxsOMEAKLywmcMKESfJLFIByH+jdhBvByuEbsCGgfHIwAfE/HgwH0QdVv0gzEogTdM6n4/aMTB2AADJZhzW
+  </data>
+ </layer>
+ <layer name="furniture" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAPlBgYDhDCBIwYcCBMZXXYgDSV1dEa0ModA+0/IQhuoMQMRTxyCkAsBcEk2SELwXA9mlCzRsEowAaUiMCEAACm7gxT
+  </data>
+ </layer>
+ <layer name="decoratives" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AU0AOIDbQDRsGIAgA7fAAX
+  </data>
+ </layer>
+ <objectgroup color="#ff0010" name="objects">
+  <object id="3" name="player" type="player" x="32" y="124" width="16" height="20"/>
+  <object id="7" name="exit" type="exit" x="352" y="116" width="16" height="28"/>
+  <object id="14" type="saw" x="128" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+  <object id="15" type="saw" x="144" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+  <object id="16" type="saw" x="176" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+  <object id="17" type="saw" x="160" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+  <object id="18" type="saw" x="224" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+  <object id="19" type="saw" x="208" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+  <object id="20" type="saw" x="192" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+  <object id="21" type="saw" x="240" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+  <object id="22" type="saw" x="256" y="-16" width="16" height="16">
+   <properties>
+    <property name="loop" value="true"/>
+    <property name="xVelocity" value="0"/>
+    <property name="yVelocity" value="255"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

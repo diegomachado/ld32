@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="15">
+ <tileset firstgid="1" name="ld-32" tilewidth="16" tileheight="16">
+  <image source="../images/ld-32.png" width="128" height="96"/>
+ </tileset>
+ <layer name="background" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJwTYGBgEBjFo3gUj+JRPKwwAOLYF3E=
+  </data>
+ </layer>
+ <layer name="collidables" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjZWBYwMzAcIBUzArETAwMDMRgoPoFDGQAoL4EWtvBCdFLlH8J2cFNjgOQAMi/hOwQhOAGoF0NtLJDEoIpsoMVQhONOciwg9i0AcOsJNpDjh0we3D5kwWLHayQPOhALQy0wwHdDnLzB7FgONlBatqF4gZiMSuZ6YpUDAA3MSu8
+  </data>
+ </layer>
+ <layer name="furniture" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAfEIZiStXgA9JQTKkaagMlBgYHQpie7lGgp2WjYFAAYBo7QE2Myx5FPG4QguAGdHEREv2iiUdOCoLhdsgCsRwQy0BpWSz2D0cAAMsbGLs=
+  </data>
+ </layer>
+ <layer name="decoratives" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjILhC8SAWBTKhtEKA+MUugIAXwwAYQ==
+  </data>
+ </layer>
+ <objectgroup color="#ff0010" name="objects">
+  <object id="3" name="player" type="player" x="24" y="76" width="16" height="20"/>
+  <object id="7" name="exit" type="exit" x="32" y="184" width="16" height="24"/>
+  <object id="8" type="cockroach" x="100" y="178" width="18" height="29">
+   <properties>
+    <property name="endPatrol" value="352"/>
+    <property name="isImmune" value="false"/>
+    <property name="isStatic" value="false"/>
+    <property name="startPatrol" value="16"/>
+   </properties>
+  </object>
+  <object id="9" type="cockroach" x="103" y="66" width="18" height="29">
+   <properties>
+    <property name="endPatrol" value="352"/>
+    <property name="isImmune" value="true"/>
+    <property name="isStatic" value="true"/>
+    <property name="startPatrol" value="16"/>
+   </properties>
+  </object>
+  <object id="10" type="cockroach" x="271" y="99" width="18" height="29">
+   <properties>
+    <property name="endPatrol" value="352"/>
+    <property name="isImmune" value="true"/>
+    <property name="isStatic" value="true"/>
+    <property name="startPatrol" value="16"/>
+   </properties>
+  </object>
+  <object id="11" type="spikes" x="240" y="48" width="144" height="8"/>
+  <object id="12" type="spikes" x="16" y="160" width="320" height="8"/>
+  <object id="14" type="cockroach" x="264" y="178" width="18" height="29">
+   <properties>
+    <property name="endPatrol" value="352"/>
+    <property name="isImmune" value="false"/>
+    <property name="isStatic" value="false"/>
+    <property name="startPatrol" value="16"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

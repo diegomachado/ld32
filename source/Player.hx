@@ -54,7 +54,7 @@ class Player extends FlxGroup
 	var _fartBoostTimer:FlxTimer = new FlxTimer();
 
 	public var body:FlxSprite;
-	private var _fartEmitter:FlxEmitter;
+	public var fartEmitter:FlxEmitter;
 
 	private var JUMP_KEYS = ["Z"];
 	private var FART_KEYS = ["X"];
@@ -62,13 +62,11 @@ class Player extends FlxGroup
 	private var RIGHT_KEYS = ["RIGHT"];
 	private var DOWN_KEYS = ["DOWN"];
 
-	public function new(x:Float, y:Float, state:PlayState)
+	public function new(x:Float, y:Float)
 	{
-		levelState = state;
-		
 		super();
-		body = new FlxSprite(x, y);
 		
+		body = new FlxSprite(x, y);
 		body.loadGraphic(Reg.PLAYER_SPRITE, true, 32, 32);
 		body.width = 10;
 		body.height = 20;
@@ -87,25 +85,15 @@ class Player extends FlxGroup
 
 		fartFuel = FART_MAX_FUEL;
 
-		_fartEmitter = new FlxEmitter(x / 2, y / 2);
-		_fartEmitter.setSize(8, 8);
-		_fartEmitter.setXSpeed(10, 20);
-		_fartEmitter.setYSpeed( -10, 10);
-		_fartEmitter.setAlpha(0.3, 1, 0, 0);
-		_fartEmitter.makeParticles("assets/images/fart-particles.png", 50, 16, true);
+		fartEmitter = new FlxEmitter(x / 2, y / 2);
+		fartEmitter.setSize(8, 8);
+		fartEmitter.setXSpeed(10, 20);
+		fartEmitter.setYSpeed( -10, 10);
+		fartEmitter.setAlpha(0.3, 1, 0, 0);
+		fartEmitter.makeParticles("assets/images/fart-particles.png", 50, 16, true);
 
-		add(_fartEmitter);
+		add(fartEmitter);
 		add(body);
-
-		FlxG.watch.add(this, "_onGround");
-		FlxG.watch.add(this, "_canJump");
-		FlxG.watch.add(this, "_canVariableJump");
-		FlxG.watch.add(this, "_canFart");
-		FlxG.watch.add(this, "fartFuel");
-		FlxG.watch.add(body, "velocity");
-		FlxG.watch.add(body, "acceleration");
-		FlxG.watch.add(_fartEmitter, "xVelocity.min");
-		FlxG.watch.add(_fartEmitter, "xVelocity.max");
 	}
 
 	override public function update()
@@ -121,18 +109,18 @@ class Player extends FlxGroup
 
 		if(body.flipX)
 		{
-			_fartEmitter.setPosition(body.x + body.width / 2, body.y + body.height - 10);
-			_fartEmitter.setXSpeed(5 - body.velocity.x / 5, 40 - body.velocity.x / 5);
+			fartEmitter.setPosition(body.x + body.width / 2, body.y + body.height - 10);
+			fartEmitter.setXSpeed(5 - body.velocity.x / 5, 40 - body.velocity.x / 5);
 		}
 		else
 		{
-			_fartEmitter.setPosition(body.x + body.width / 2 - 8, body.y + body.height - 10);
-			_fartEmitter.setXSpeed(-40 - body.velocity.x / 5, 5 - body.velocity.x / 5);
+			fartEmitter.setPosition(body.x + body.width / 2 - 8, body.y + body.height - 10);
+			fartEmitter.setXSpeed(-40 - body.velocity.x / 5, 5 - body.velocity.x / 5);
 		}
 
 		if(_onGround)
 		{
-			_fartEmitter.setYSpeed(-10, 10);
+			fartEmitter.setYSpeed(-10, 10);
 		}
 
 		super.update();
@@ -144,13 +132,13 @@ class Player extends FlxGroup
 
 		if(FlxG.keys.anyPressed(LEFT_KEYS))
 		{
-			body.acceleration.x -= body.drag.x;
+			body.acceleration.x -= WALK_SPEED;
 			body.flipX = true;
 			body.offset.x = 11;
 		}
 		else if(FlxG.keys.anyPressed(RIGHT_KEYS))
 		{
-			body.acceleration.x += body.drag.x;
+			body.acceleration.x += WALK_SPEED;
 			body.flipX = false;
 			body.offset.x = 10;
 		}
@@ -170,6 +158,7 @@ class Player extends FlxGroup
 			body.velocity.y = -JUMP_SPEED;
 			_canJump = false;
 			_canVariableJump = true;
+			playJumpSound();
 		}
 		else if(FlxG.keys.anyPressed(JUMP_KEYS) && !_canJump && _canVariableJump)
 		{
@@ -194,28 +183,32 @@ class Player extends FlxGroup
 
 		if(FlxG.keys.anyJustPressed(FART_KEYS))
 		{
-			_fartEmitter.setYSpeed(10, 40);
-			_fartEmitter.start(false, 1, 0.0015, 100);
+			fartEmitter.setYSpeed(10, 40);
+			fartEmitter.start(false, 1, 0.0015, 100);
 		}
 
-		_fartEmitter.on = false;
+		fartEmitter.on = false;
 
 		if(FlxG.keys.anyPressed(FART_KEYS) && _canFart && FlxRandom.chanceRoll(30))
 		{
 			body.velocity.y = -FART_POWER;
 			fartFuel -= FART_CONSUME_RATE;
-			_fartEmitter.on = true;
+			fartEmitter.on = true;
+			playFartSound();
 		}
 		
 		if(_onGround && fartFuelIncomplete)
 		{
-			_fartEmitter.on = false;
+			fartEmitter.on = false;
 			fartFuel += FART_RECOVER_RATE;
 		}
 	}
 
 	private function fartBoost()
 	{
+		if(FlxG.keys.anyJustPressed(FART_KEYS))
+			playFartSound();
+
 		if(FlxG.keys.anyPressed(LEFT_KEYS.concat(RIGHT_KEYS)) && FlxG.keys.anyJustPressed(FART_KEYS) && _onGround)
 		{
 			var hasFartBoostFuel = fartFuel >= FART_BOOST_CONSUME;
@@ -225,7 +218,7 @@ class Player extends FlxGroup
 				_fartBoostTimer.start(FART_BOOST_TIME, onFartBoostEnds, 1);
 				body.maxVelocity.x = MAX_WALK_SPEED * (1 + FART_BOOST_PERCENTAGE / 100);
 				fartFuel -= Std.int(FART_BOOST_CONSUME);
-				_fartEmitter.start(true, 1, 50);
+				fartEmitter.start(true, 1, 50);
 			}
 		}
 	}
@@ -240,7 +233,7 @@ class Player extends FlxGroup
 			{
 				_fartMeleeTimer.start(FART_BOOST_TIME, onFartMeleeEnds, 1);
 				fartFuel -= Std.int(FART_BOOST_CONSUME);
-				_fartEmitter.start(true, 1, 50);
+				fartEmitter.start(true, 1, 50);
 			}
 		}
 	}
@@ -258,6 +251,16 @@ class Player extends FlxGroup
 
 	    if(body.velocity.x == 0 && body.velocity.y == 0)
 	    	body.animation.play("idle");
+	}
+
+	private function playJumpSound()
+	{
+		FlxG.sound.play(Reg.JUMP_SOUNDS_PATH + FlxRandom.intRanged(1, 3) + ".wav", 0.25);
+	}
+
+	public function playFartSound()
+	{
+		FlxG.sound.play(Reg.FART_SOUNDS_PATH + FlxRandom.intRanged(1, 3) + ".mp3", 0.5);
 	}
 
 	private function onVariableJumpEnds(timer:FlxTimer)

@@ -33,12 +33,12 @@ class TiledLevel extends TiledMap
 				background.widthInTiles = width;
 				background.heightInTiles = height;
 				background.loadMap(layer.tileArray, 
-							  Reg.BASE_TILESHEET, 
-							  tilesets["base"].tileWidth, 
-							  tilesets["base"].tileHeight, 
-							  0, 1, 1, 1);
+							  	   Reg.BASE_TILESHEET, 
+							  	   tilesets["ld-32"].tileWidth, 
+							  	   tilesets["ld-32"].tileHeight, 
+							  	   0, 1, 1, 1);
 
-				loadTilemapSpecialTiles(background, layer, tilesetAnimations["base"]);
+				loadTilemapSpecialTiles(background, layer, tilesetAnimations["ld-32"]);
 			}
 
 			if(layer.name == "collidables")
@@ -46,12 +46,12 @@ class TiledLevel extends TiledMap
 				collidables.widthInTiles = width;
 				collidables.heightInTiles = height;
 				collidables.loadMap(layer.tileArray, 
-							  Reg.BASE_TILESHEET, 
-							  tilesets["base"].tileWidth, 
-							  tilesets["base"].tileHeight, 
-							  0, 1, 1, 2);
+								    Reg.BASE_TILESHEET, 
+								    tilesets["ld-32"].tileWidth, 
+								    tilesets["ld-32"].tileHeight, 
+								    0, 1, 1, 2);
 
-				loadTilemapSpecialTiles(collidables, layer, tilesetAnimations["base"]);
+				loadTilemapSpecialTiles(collidables, layer, tilesetAnimations["ld-32"]);
 
 				var floorLeftSlopes = [7];
 				var floorRightSlopes = [8];
@@ -70,11 +70,11 @@ class TiledLevel extends TiledMap
 				furniture.heightInTiles = height;
 				furniture.loadMap(layer.tileArray, 
 							  Reg.BASE_TILESHEET, 
-							  tilesets["base"].tileWidth, 
-							  tilesets["base"].tileHeight, 
+							  tilesets["ld-32"].tileWidth, 
+							  tilesets["ld-32"].tileHeight, 
 							  0, 1, 1, 1);
 
-				loadTilemapSpecialTiles(furniture, layer, tilesetAnimations["base"]);
+				loadTilemapSpecialTiles(furniture, layer, tilesetAnimations["ld-32"]);
 			}
 
 			if(layer.name == "decoratives")
@@ -83,11 +83,11 @@ class TiledLevel extends TiledMap
 				decoratives.heightInTiles = height;
 				decoratives.loadMap(layer.tileArray, 
 							  Reg.BASE_TILESHEET, 
-							  tilesets["base"].tileWidth, 
-							  tilesets["base"].tileHeight, 
+							  tilesets["ld-32"].tileWidth, 
+							  tilesets["ld-32"].tileHeight, 
 							  0, 1, 1, 1);
 
-				loadTilemapSpecialTiles(decoratives, layer, tilesetAnimations["base"]);
+				loadTilemapSpecialTiles(decoratives, layer, tilesetAnimations["ld-32"]);
 			}
 		}
 	}
@@ -151,14 +151,32 @@ class TiledLevel extends TiledMap
 		switch (type)
 		{
 			case "player":
-				var player = new Player(x, y, state);
+				var player = new Player(x, y);
 				state.player = player;
-				state.add(player);
+
+			case "spikes":	
+				var spikes = new Spikes(x, y, width, height);
+				state.spikes.add(spikes);
+
+			case "saw":	
+				var xVelocity = Std.parseFloat(object.custom.get("xVelocity"));
+				var yVelocity = Std.parseFloat(object.custom.get("yVelocity"));
+				var loop = (object.custom.get("loop") == "true");
+
+				var saw = new Saw(x, y, xVelocity, yVelocity, loop);
+				state.saws.add(saw);
+
+			case "cockroach":
+				var isStatic = (object.custom.get("isStatic") == "true");
+				var isImmune = (object.custom.get("isImmune") == "true");
+				var startPatrol = Std.parseInt(object.custom.get("startPatrol"));
+				var endPatrol = Std.parseInt(object.custom.get("endPatrol"));
+				var cockroach = new Cockroach(x, y, isStatic, isImmune, startPatrol, endPatrol, state.player);
+				state.cockroaches.add(cockroach);
 
 			case "exit":	
 				var exit = new Exit(x, y, width, height);
 				state.exit = exit;
-				state.add(exit);
 		}
 	}
 
@@ -169,4 +187,13 @@ class TiledLevel extends TiledMap
 				tile.rotate != FlxTileSpecial.ROTATE_0 ||
 				animations.exists(tile.tilesetID));
 	}
+
+	public function destroy()
+	{
+		background.destroy();
+		collidables.destroy();
+		furniture.destroy();
+		decoratives.destroy();
+	}
+
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" nextobjectid="8">
- <tileset firstgid="1" name="base" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="ld-32" tilewidth="16" tileheight="16">
   <image source="../images/ld-32.png" width="128" height="96"/>
  </tileset>
  <layer name="background" width="25" height="15">
@@ -10,21 +10,21 @@
  </layer>
  <layer name="collidables" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjZWBYwMzAcIBWmBVCL2CgIQCanzBc7GCF0GRjFuLsoCjOWQiEA63Cig+I+RkYGoB0w3CIc24a2yEIwTQLK5D7JSGYanawM+BO26xk2oFuJsgcJiCNA5OVBwmYiWEHCWrJxgAO6y9E
+   eJxjZWBYwMzAcIBWmBVCL2CgIQCanzBc7GCF0GRjFiLsYALSrBTEOwuBcID6YwEX2SGBHfABMT8DQwOQbhgOcc5NYzsEIZhmYQVyvyQEU80OdgbcaZuVTDvQzWSF5gEcmKw8SMBMDDtIUEs2BgBJli6P
   </data>
  </layer>
  <layer name="furniture" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBg4IE2BvDAOcUUy3UKK/ZpUtGOkAFzxRaqagbaDUJqlhh3EAGLcMRiBEAQ3UMMsWSCWAWI5IJaH8BsUgLQUBFPFjqEMAPSpA88=
+   eJxjYBg4IA2lVYFYHYjVoDSQ34Asjw0I4xBXpJbj8NiviUVMAYhlgVgOCQP5DQpUdM9QBrjii1Q1+AC+9EItO4gB9LCDGL8ORiAEwQ3UMAuU32QYIHlNngGR36QgmCp2DGUAAFjIBk4=
   </data>
  </layer>
  <layer name="decoratives" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBhYoArEakCsDqEbYDRQvGFAHUYmEAdiCQjdMMBOGQWjYEQAUSgtNqCuGHwAACGDA3w=
+   eJxjYBgF1ASiSLQYlC0OwQ0D4qBRMAqGOYDlOTG8qkYeAABbdAEa
   </data>
  </layer>
  <objectgroup color="#ff0010" name="objects">
-  <object id="3" name="player" type="player" x="24" y="180" width="16" height="16"/>
+  <object id="3" name="player" type="player" x="24" y="188" width="16" height="20"/>
   <object id="7" name="exit" type="exit" x="32" y="40" width="16" height="24"/>
  </objectgroup>
 </map>
